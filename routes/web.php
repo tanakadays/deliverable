@@ -15,7 +15,13 @@ use App\Http\Controllers\PostController;
 |
 */
 
-Route::get('/', [PostController::class, 'top'])->middleware(['auth']);
+Route::get('/', [PostController::class, 'index'])->middleware(['auth']);
+Route::get('/posts/create', [PostController::class, 'create']);
+Route::post('/posts', [PostController::class, 'store']);
+Route::get('/posts/{post}', [PostController::class, 'show']);
+Route::get('/posts/{post}/edit', [PostController::class, 'edit']);
+Route::put('/posts/{post}', [PostController::class, 'update']);
+Route::delete('/posts/{post}', [PostController::class, 'delete']);
 
 Route::get('/dashboard', function () {
     return view('dashboard');

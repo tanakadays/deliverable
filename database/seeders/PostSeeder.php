@@ -17,13 +17,30 @@ class PostSeeder extends Seeder
     public function run()
     {
          DB::table('posts')->insert([
-            'prace_name' => "毛利探偵事務所",
+            'place_name' => "秋名山",
             'genre' => "漫画",
-            'title_name' => "名探偵コナン",
-            'area' => "東京都",
-            'information' => "名探偵コナンに登場する毛利探偵事務所の所在地です。是非訪れてみてください。",
+            'title_name' => "initialD",
+            'area' => "群馬県",
+            'information' => "是非訪れてみてください。",
             'created_at' => new Datetime(),
             'updated_at' => new Datetime(),
+            'category_genre_id' => 1,
+            'category_title_id' => 1,
+            'category_area_id' => 1,
+            'user_id' => 1,
+            
+        ]);
+        
+        DB::table('posts')->insert([
+            'place_name' => "いろは坂",
+            'genre' => "漫画",
+            'title_name' => "initialD",
+            'area' => "栃木県",
+            'information' => "是非行ってみてください",
+            'category_genre_id' => 1,
+            'category_title_id' => 1,
+            'category_area_id' => 1,
+            'user_id' => 1,
             
         ]);
     }
