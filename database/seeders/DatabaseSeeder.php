@@ -14,6 +14,10 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
+        $this->call(Category_genreSeeder::class);
+        $this->call(CategoryTitleSeeder::class);
+        $this->call(CategoryAreaSeeder::class);
         $this->call(PostSeeder::class);
+        
     }
 }
