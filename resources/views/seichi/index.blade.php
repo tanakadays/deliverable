@@ -8,6 +8,9 @@
     </head>
     <body>
         <h1>聖地巡礼マップ</h1>
+        
+        
+        
         <div class='posts'>
             @foreach ($posts as $post)
                 <div class='post'>
@@ -40,6 +43,8 @@
                 }
             }
         </script>
+        
+       
     </body>
 
 </html>

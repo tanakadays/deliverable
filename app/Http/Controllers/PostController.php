@@ -7,10 +7,22 @@ use App\Http\Requests\PostRequest;
 use App\Models\Post;
 use Cloudinary;
 
+use Illuminate\Support\Facades\Http;
+
 class PostController extends Controller
 {
+    public function geocode()
+    {
+        $apiKey = config('services.google_maps.api_key');
+        
+        return view('seichi.geocode', compact('apiKey'));
+    }
+    
+    
     public function index(Post $post)
     {
+        
+        
         return view('seichi/index')->with(['posts' => $post->getPaginateByLimit()]);
     }
     
