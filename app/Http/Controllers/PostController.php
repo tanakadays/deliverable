@@ -21,9 +21,9 @@ class PostController extends Controller
     
     public function index(Post $post)
     {
+        $apiKey = config('services.google_maps.api_key');
         
-        
-        return view('seichi/index')->with(['posts' => $post->getPaginateByLimit()]);
+        return view('seichi/index', compact('apiKey'))->with(['posts' => $post->getPaginateByLimit()]);
     }
     
     public function show(Post $post)
@@ -56,12 +56,19 @@ class PostController extends Controller
     
     public function edit(Post $post)
     {
-        return view('seichi/edit') ->with(['post'=>$post]);
+        $apiKey = config('services.google_maps.api_key');
+        return view('seichi/edit', compact('apiKey')) ->with(['post'=>$post]);
     }
     
     public function update(PostRequest $request, Post $post)
     {
+        
         $input_post = $request['post'];
+        if($request->file('image')){
+            $image_url = Cloudinary::upload($request->file('image')->getRealPath())->getSecurePath();
+            $input_post += [ 'image_url' => $image_url];
+        }
+        
         $post->fill($input_post)->save();
         $post->category_genre_id = 1;
         $post->category_title_id = 1;
