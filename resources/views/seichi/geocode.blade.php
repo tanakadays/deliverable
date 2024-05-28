@@ -14,22 +14,13 @@
 <body>
     <h1>マップテスト</h1>
     <div id="map"></div>
-    <div id="displayText">カーソルを合わせて場所を追加してください。</div>
     <script src="https://maps.googleapis.com/maps/api/js?key={{ $apiKey }}&callback=initMap" async defer></script>
     <script>
         let map;
         let marker = null; 
-        const displayText = document.getElementById('displayText');
         
-        // マウスオーバーイベント
-            map.addEventListener('mouseover', () => {
-                displayText.style.display = 'block'; // 文字を表示
-            });
-    
-            // マウスアウトイベント
-            hoverElement.addEventListener('mouseout', () => {
-                displayText.style.display = 'none'; // 文字を非表示
-            });
+        
+        
 
         function initMap() {
             map = new google.maps.Map(document.getElementById("map"), {
@@ -40,6 +31,12 @@
             map.addListener("click", (e) => {
                 placeMarkerAndPanTo(e.latLng, map);
             });
+            
+            let tokyo = new google.maps.Marker({
+                position:{ lat:35.6586, lng:139.7454 },
+                map:map,
+            });
+            
             
             
         }
@@ -59,6 +56,8 @@
             // 地図の中心を新しいマーカーの位置に移動
             map.panTo(latLng);
         }
+        
+        
     </script>
 </body>
 </html>
