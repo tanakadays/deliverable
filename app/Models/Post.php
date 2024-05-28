@@ -19,6 +19,8 @@ class Post extends Model
         'area',
         'information',
         'image_url',
+        'longitude',
+        'latitude',
         ];
     
     public function getPaginateByLimit(int $limit_count=10)

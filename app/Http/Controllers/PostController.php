@@ -33,7 +33,8 @@ class PostController extends Controller
     
     public function create()
     {
-        return view('seichi/create');
+        $apiKey = config('services.google_maps.api_key');
+        return view('seichi/create', compact('apiKey'));
     }
     
     public function store(Post $post, PostRequest $request)
