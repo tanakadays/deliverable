@@ -25,10 +25,12 @@ class PostRequest extends FormRequest
     {
         return [
             'post.place_name' => 'required|string|max:20',
-            'post.title_name' => 'required|string|max:20',
-            'post.genre' => 'required|string|max:20',
-            'post.area' => 'required|string|max:20',
+            #'post.title_name' => 'required|string|max:20',
+            #'post.genre' => 'required|string|max:20',
+            #'post.area' => 'required|string|max:20',
             'post.information' => 'required|string|max:500',
+            'post.latitude' => 'required|numeric|min:0.01',
+            'post.longitude' => 'required|numeric|min:0.01',
         ];
     }
 }

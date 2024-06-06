@@ -20,15 +20,15 @@
         <div class="content">
             <div class="title_name">
                 <h3>作品名</h3>
-                <p>{{ $post->title_name }}</p>    
+                <p>{{ $post->category_title->name }}</p>    
             </div>
             <div class="genre">
                 <h3>ジャンル</h3>
-                <p>{{ $post->genre }}</p>    
+                <p>{{ $post->category_genre->name }}</p>    
             </div>
             <div class="area">
                 <h3>エリア</h3>
-                <p>{{ $post->area }}</p>    
+                <p>{{ $post->category_area->name }}</p>    
             </div>
             <div class="information">
                 <h3>詳細</h3>

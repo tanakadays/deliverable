@@ -54,6 +54,10 @@
                 <input type="hidden" name="post[longitude]" id="longitude" value="{{ $post->longitude }}">
                 <input type="submit" value="保存">
             </form>
+            
+            <div class="footer">
+            <a href="/">戻る</a>
+            </div>
         </div>
         
         <script src="https://maps.googleapis.com/maps/api/js?key={{ $apiKey }}&callback=initMap" async defer></script>

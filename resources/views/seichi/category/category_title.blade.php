@@ -11,7 +11,7 @@
         </style>
     </head>
     <body>
-        <h1>聖地巡礼マップ</h1>
+        <h1>作品ごとの一覧</h1>
         
        
         
@@ -21,9 +21,11 @@
                     <h2 class='place_name'>
                         <a href="/posts/{{ $post->id }}">{{ $post->place_name }}</a>
                     </h2>
-                    <p><a href="/category_genres/{{ $post->category_genre->id }}">{{ $post->category_genre->name }}</a></p>
-                    <p><a href="/category_titles/{{ $post->category_title->id }}">{{ $post->category_title->name }}</a></p>
-                    <p><a href="/category_areas/{{ $post->category_area->id }}">{{ $post->category_area->name }}</a></p>
+                    <p class='genre'>{{ $post->genre }}</p>
+                    <a href="">{{ $post->category_genre->name }}</a>
+                    <p class='title_name'>{{ $post->title_name }}</p>
+                    <a href="">{{ $post->category_title->name }}</a>
+                    <p class='area'>{{ $post->area }}</p>
                     <p class='information'>{{ $post->information }}</p>
                 </div>
                 <form action='/posts/{{ $post->id }}' id="form_{{ $post->id }}" method="post">

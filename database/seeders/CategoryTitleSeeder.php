@@ -17,15 +17,10 @@ class CategoryTitleSeeder extends Seeder
     public function run()
     {
         DB::table('category_titles')->insert([
-            'name'=>"initialD",
-        ]);
-        
-        DB::table('category_titles')->insert([
-            'name'=>"ドラえもん",
-        ]);
-        
-        DB::table('category_titles')->insert([
-            'name'=>"サザエさん",
-        ]);
+        ['name' => "その他"], 
+        ['name' => "頭文字D"],
+        ['name' => "君の名は。"],
+        ['name' => "アンパンマン"]
+    ]);
     }
 }

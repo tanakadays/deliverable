@@ -7,7 +7,7 @@ use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 use DateTime;
 
-class Category_genreSeeder extends Seeder
+class UserSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -16,12 +16,10 @@ class Category_genreSeeder extends Seeder
      */
     public function run()
     {
-       DB::table('category_genres')->insert([
-        ['name' => '漫画'],
-        ['name' => 'アニメ'],
-        ['name' => '映画'],
-        ['name' => '小説'],
-        ['name' => 'その他'],
-    ]);
+        DB::table('users')->insert([
+                'name' => "tanaka",
+                'email' => "tanaka@gmail.com",
+                'password' => "$2y$10$/Jz.8EQ1iDcP9WQej3rwz.UwU1UzIgsVIsi6T5XJBgjdoR236pz9C",
+            ]);
     }
 }
