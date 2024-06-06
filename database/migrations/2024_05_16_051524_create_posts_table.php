@@ -18,9 +18,9 @@ return new class extends Migration
             $table->double('latitude')->nullable();#緯度
             $table->double('longitude')->nullable();#経度
             $table->string('place_name', 20);
-            $table->string('genre', 20);
-            $table->string('title_name', 20);
-            $table->string('area', 20);
+            $table->string('genre', 20)->nullable();
+            $table->string('title_name', 20)->nullable();
+            $table->string('area', 20)->nullable();
             $table->string('information', 500);
             $table->string('image_url')->nullable();
             $table->timestamps();

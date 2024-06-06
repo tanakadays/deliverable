@@ -3,7 +3,7 @@
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PostController;
-
+use App\Http\Controllers\CategoryController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -16,6 +16,9 @@ use App\Http\Controllers\PostController;
 */
 
 Route::get('/', [PostController::class, 'index'])->middleware(['auth']);
+Route::get('/category_genres/{category_genre}', [CategoryController::class,'genreindex']);
+Route::get('/category_titles/{category_title}', [CategoryController::class,'titleindex']);
+Route::get('/category_areas/{category_area}', [CategoryController::class,'areaindex']);
 Route::get('/posts/create', [PostController::class, 'create']);
 Route::post('/posts', [PostController::class, 'store']);
 Route::get('/posts/{post}', [PostController::class, 'show']);
