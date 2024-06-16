@@ -25,6 +25,7 @@ class PostController extends Controller
     
     public function index(Post $post)
     {
+        
         $apiKey = config('services.google_maps.api_key');
         
         return view('seichi/index', compact('apiKey'))->with(['posts' => $post->getPaginateByLimit()]);
@@ -103,4 +104,20 @@ class PostController extends Controller
         $post->delete();
         return redirect('/');
     }
+    
+    public function search(Request $request)
+    {
+        $keyword = $request->input('keyword');
+
+        $query = Post::query();
+        
+        if(!empty($keyword)) {
+            $query->where('place_name', 'LIKE', "%{$keyword}%");
+        }
+
+        $posts = $query->orderBy('updated_at', 'DESC')->paginate(1);
+
+        return view('seichi/search')->with(["posts"=>$posts]);
+    }
+
 }
