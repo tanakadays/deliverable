@@ -8,6 +8,9 @@ use App\Models\Post;
 use App\Models\category_genre;
 use App\Models\category_title;
 use App\Models\category_area;
+use App\Models\Like;
+use Illuminate\Support\Facades\Auth;
+
 
 use Cloudinary;
 
@@ -118,6 +121,33 @@ class PostController extends Controller
         $posts = $query->orderBy('updated_at', 'DESC')->paginate(1);
 
         return view('seichi/search')->with(["posts"=>$posts]);
+    }
+    
+    public function __construct()
+    {
+        $this->middleware(['auth', 'verified'])->only(['like', 'unlike']);
+    }
+     
+     public function like($id)
+    {
+        Like::create([
+          'post_id' => $id,
+          'user_id' => Auth::id(),
+        ]);
+    
+        session()->flash('success', 'You Liked the Post.');
+    
+        return redirect()->back();
+    }
+     
+    public function unlike($id)
+    {
+        $like = Like::where('post_id', $id)->where('user_id', Auth::id())->first();
+        $like->delete();
+    
+        session()->flash('success', 'You Unliked the post.');
+    
+        return redirect()->back();
     }
 
 }

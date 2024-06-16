@@ -17,6 +17,15 @@
         <h1 class="place_name">
             {{ $post->place_name }}
         </h1>
+        
+        <div>
+          @if($post->is_liked_by_auth_user())
+            <a href="/unlike/{{  $post->id  }}" class="btn btn-success btn-sm">いいね<span class="badge">{{ $post->likes->count() }}</span></a>
+          @else
+            <a href="/like/{{  $post->id  }}" class="btn btn-secondary btn-sm">いいね<span class="badge">{{ $post->likes->count() }}</span></a>
+          @endif
+        </div>
+        
         <div class="content">
             <div class="title_name">
                 <h3>作品名</h3>

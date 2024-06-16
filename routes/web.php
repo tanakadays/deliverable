@@ -21,6 +21,8 @@ Route::get('/category_titles/{category_title}', [CategoryController::class,'titl
 Route::get('/category_areas/{category_area}', [CategoryController::class,'areaindex']);
 Route::get('/posts/create', [PostController::class, 'create']);
 Route::get('/search', [PostController::class, 'search']);
+Route::get('/like/{id}', [PostController::class, 'like']);
+Route::get('/unlike/{id}', [PostController::class, 'unlike']);
 Route::post('/posts', [PostController::class, 'store']);
 Route::get('/posts/{post}', [PostController::class, 'show']);
 Route::get('/posts/{post}/edit', [PostController::class, 'edit']);
