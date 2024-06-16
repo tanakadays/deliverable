@@ -20,6 +20,7 @@ Route::get('/category_genres/{category_genre}', [CategoryController::class,'genr
 Route::get('/category_titles/{category_title}', [CategoryController::class,'titleindex']);
 Route::get('/category_areas/{category_area}', [CategoryController::class,'areaindex']);
 Route::get('/posts/create', [PostController::class, 'create']);
+Route::get('/search', [PostController::class, 'search']);
 Route::post('/posts', [PostController::class, 'store']);
 Route::get('/posts/{post}', [PostController::class, 'show']);
 Route::get('/posts/{post}/edit', [PostController::class, 'edit']);
