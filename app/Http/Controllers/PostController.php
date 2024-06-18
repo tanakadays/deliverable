@@ -79,10 +79,10 @@ class PostController extends Controller
         return redirect('/posts/'. $post->id);
     }
     
-    public function edit(Post $post)
+    public function edit(Post $post, category_genre $category_genre, category_title $category_title, category_area $category_area)
     {
         $apiKey = config('services.google_maps.api_key');
-        return view('seichi/edit', compact('apiKey')) ->with(['post'=>$post]);
+        return view('seichi/edit', compact('apiKey'))->with(['post'=>$post, 'category_genres'=>$category_genre->get(), 'category_titles'=>$category_title->get(), 'category_areas'=>$category_area->get()]);
     }
     
     public function update(PostRequest $request, Post $post)
