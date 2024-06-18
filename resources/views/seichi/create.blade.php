@@ -2,21 +2,84 @@
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
     <head>
         <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>聖地巡礼マップ</title>
         <style>
+            body {
+                font-family: 'Nunito', sans-serif;
+                background-color: #f9f9f9;
+                margin: 0;
+                padding: 0;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                padding: 20px;
+            }
+            h1 {
+                font-size: 24px;
+                color: #333;
+                margin: 20px 0;
+            }
             #map {
                 height: 50vh;
-                width: 50%;
+                width: 80%;
+                max-width: 800px;
+                margin: 20px 0;
+                border: 1px solid #ddd;
+                border-radius: 8px;
             }
-            
-            #other_genre {
-                display: none;
+            form {
+                width: 80%;
+                max-width: 800px;
+                background-color: white;
+                border: 1px solid #ddd;
+                border-radius: 8px;
+                padding: 20px;
+                box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+                margin-bottom: 20px;
             }
-            
-            #other_title {
-                display: none;
+            form h2 {
+                color: #333;
             }
-            
+            form input[type="text"],
+            form textarea,
+            form select,
+            form input[type="file"] {
+                width: 100%;
+                padding: 10px;
+                margin: 10px 0;
+                border: 1px solid #ddd;
+                border-radius: 4px;
+                font-size: 16px;
+            }
+            form input[type="submit"] {
+                background-color: #4CAF50;
+                color: white;
+                padding: 10px 20px;
+                border: none;
+                border-radius: 4px;
+                cursor: pointer;
+                font-size: 16px;
+            }
+            form input[type="submit"]:hover {
+                background-color: #45a049;
+            }
+            .footer {
+                margin: 20px 0;
+            }
+            .footer a {
+                color: #1E90FF;
+                text-decoration: none;
+            }
+            .footer a:hover {
+                text-decoration: underline;
+            }
+            .error {
+                color: red;
+            }
+            #other_genre,
+            #other_title,
             #other_area {
                 display: none;
             }
@@ -35,23 +98,12 @@
             <div class="place_name">
                 <h2>場所名</h2>
                 <input type="text" name="post[place_name]" placeholder="場所名"/>
-                <p class='place_name_error' style="color:red">{{ $errors->first('post.place_name') }}</p>
+                <p class='error'>{{ $errors->first('post.place_name') }}</p>
             </div>
-            <div class="genre">
-                <h2>ジャンル</h2>
-                
-                <select id="options_genre" name="post[category_genre_id]">
-                    @foreach($category_genres as $category_genre)
-                        <option value="{{ $category_genre->id }}">{{ $category_genre->name }}</option>
-                    @endforeach
-                </select>
-                <input id="other_genre" name="post[genre]" placeholder="ジャンル名">
-                
-            </div>
+            
             
             <div class="title_name">
                 <h2>作品名</h2>
-                
                 <select id="options_title" name="post[category_title_id]">
                     @foreach($category_titles as $category_title)
                         <option value="{{ $category_title->id }}">{{ $category_title->name }}</option>
@@ -60,8 +112,18 @@
                 <input id="other_title" type="text" name="post[title_name]" placeholder="作品名"/>
             </div>
             
+            <div class="genre">
+                <h2>ジャンル</h2>
+                <select id="options_genre" name="post[category_genre_id]">
+                    @foreach($category_genres as $category_genre)
+                        <option value="{{ $category_genre->id }}">{{ $category_genre->name }}</option>
+                    @endforeach
+                </select>
+                <input id="other_genre" type=text name="post[genre]" placeholder="ジャンル名">
+            </div>
+            
             <div class="area">
-                <h2>場所名</h2>
+                <h2>エリア</h2>
                 <select id="options_area" name="post[category_area_id]">
                     @foreach($category_areas as $category_area)
                         <option value="{{ $category_area->id }}">{{ $category_area->name }}</option>
@@ -72,16 +134,16 @@
             
             <div class="information">
                 <h2>詳細</h2>
-                <textarea type="text" name="post[information]" placeholder="説明"/></textarea>
-                <p class='information_error' style="color:red">{{ $errors->first('post.information') }}</p>
+                <textarea name="post[information]" placeholder="説明"></textarea>
+                <p class='error'>{{ $errors->first('post.information') }}</p>
             </div>
             
             <input type="hidden" name="post[latitude]" id="latitude">
             <input type="hidden" name="post[longitude]" id="longitude">
             
-             <p class='google_map_error' style="color:red">{{ $errors->first('post.longitude') }}</p>
+            <p class='error'>{{ $errors->first('post.longitude') }}</p>
             
-            <input type="submit" value="store"/>
+            <input type="submit" value="保存">
         </form>
         <div class="footer">
             <a href="/">戻る</a>
@@ -92,10 +154,9 @@
             let map;
             let marker = null; 
             
-    
             function initMap() {
                 map = new google.maps.Map(document.getElementById("map"), {
-                    center: { lat: 35.6895, lng: 139.6917 }, // 東京の中心
+                    center: { lat: 35.6895, lng: 139.6917 },
                     zoom: 8,
                 });
     
@@ -104,23 +165,18 @@
                     document.getElementById('latitude').value = e.latLng.lat();
                     document.getElementById('longitude').value = e.latLng.lng();
                 });
-                
-                
             }
     
             function placeMarkerAndPanTo(latLng, map) {
-                // 既存のマーカーがあれば削除
-                if (marker　!= null) {
+                if (marker != null) {
                     marker.setMap(null);
                 }
     
-                // 新しいマーカーを作成して設置
                 marker = new google.maps.Marker({
                     position: latLng,
                     map: map,
                 });
     
-                // 地図の中心を新しいマーカーの位置に移動
                 map.panTo(latLng);
             }
             
@@ -142,7 +198,7 @@
             });
             
             titleselectElement.addEventListener('change', function() {
-              if (titleselectElement.value == '1') {
+              if (titleselectElement.value == '4') {
                 titleotherInputDiv.style.display = 'block';
               } else {
                 titleotherInputDiv.style.display = 'none';
@@ -156,7 +212,6 @@
                 areaotherInputDiv.style.display = 'none';
               }
             });
-            
         </script>
     </body>
 </html>
