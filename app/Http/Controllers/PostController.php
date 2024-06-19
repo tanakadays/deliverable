@@ -149,5 +149,13 @@ class PostController extends Controller
     
         return redirect()->back();
     }
+    
+    public function mypage()
+    {
+        $user = Auth::user();
+        $userLikes = $user->likes()->get();
+        
+        return view('seichi/mypage') -> with(["userLikes"=>$userLikes]);
+    }
 
 }

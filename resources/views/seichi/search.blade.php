@@ -14,23 +14,87 @@
                 flex-direction: column;
                 align-items: center;
                 justify-content: center;
-                padding: 20px;
+                padding: 60px;
             }
-            h1 {
+            
+            header {
+                width: 100%;
+                background-color: #333;
+                color: white;
+                position: fixed;
+                top: 0;
+                left: 0;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                padding: 10px 20px;
+                box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+                z-index: 1000;
+            }
+            header h1 {
+                margin: 0;
+                font-size: 24px;
+            }
+            
+            header nav {
+                display: flex;
+                margin-left: 100;
+            }
+            
+            header nav a {
+                color: white;
+                text-decoration: none;
+                margin: 0 20px;
+                font-size: 16px;
+            }
+            header nav a:hover {
+                text-decoration: underline;
+            }
+            
+            .dropdown {
+                position: relative;
+                display: inline-block;
+            }
+        
+            .dropdown-content {
+                display: none;
+                position: absolute;
+                background-color: #f9f9f9;
+                min-width: 160px;
+                box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+                z-index: 1;
+            }
+        
+            .dropdown-content a {
+                color: black;
+                padding: 12px 16px;
+                text-decoration: none;
+                display: block;
+            }
+        
+            .dropdown-content a:hover {
+                background-color: #f1f1f1;
+            }
+        
+            .dropdown:hover .dropdown-content {
+                display: block;
+            }
+            
+            h1.page-title {
                 font-size: 24px;
                 color: #333;
                 margin: 20px 0;
             }
+            
             form {
-                width: 80%;
-                max-width: 800px;
+                
                 margin: 20px 0;
                 display: flex;
                 flex-direction: column;
                 align-items: center;
             }
             form input[type="text"] {
-                width: 100%;
+                width: 250px;
                 padding: 10px;
                 margin: 10px 0;
                 border: 1px solid #ddd;
@@ -95,21 +159,34 @@
                 text-decoration: none;
                 color: #1E90FF;
             }
-            #map {
-                height: 50vh;
-                width: 80%;
-                max-width: 800px;
-                margin: 20px 0;
-                border: 1px solid #ddd;
-                border-radius: 8px;
-            }
+            
         </style>
     </head>
     <body>
-        <h1>あいうえお</h1>
+        <header>
+            <h1>聖地巡礼マップ</h1>
+            <nav>
+                <a href="/">ホーム</a>
+                <a href="/posts/create">聖地追加</a>
+                <a href="/category_titles">作品</a>
+                <a href="/category_genres">ジャンル</a>
+                <a href="/category_areas">エリア</a>
+                
+                <div class="dropdown">
+                    <a>マイページ</a>
+                    <div class="dropdown-content">
+                        <a href="/profile">プロフィールの編集</a>
+                        <a href="/mypage">行きたいリスト</a>
+                    </div>
+                </div>
+            </nav>
+        </header>
+        
+        <h1 class="page-title">検索結果</h1>
         
         <div>
           <form action="/search" method="GET">
+            @csrf  
             <input type="text" name="keyword" placeholder="キーワードを入力">
             <input type="submit" value="検索">
           </form>
@@ -129,7 +206,7 @@
                 <form action='/posts/{{ $post->id }}' id="form_{{ $post->id }}" method="post">
                     @csrf
                     @method('DELETE')
-                    <button type="button" onclick="deletePost({{ $post->id }})">delete</button>
+                    <button type="button" onclick="deletePost({{ $post->id }})">削除</button>
                 </form>
             @endforeach
         </div>
@@ -139,7 +216,7 @@
             {{ $posts->appends(request()->query())->links() }} 
         </div>
         
-        <div id="map"></div>
+        
         
         <script>
             function deletePost(id) {

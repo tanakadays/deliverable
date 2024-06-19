@@ -20,7 +20,10 @@ class CategoryTitleSeeder extends Seeder
         ['name' => "頭文字D"],
         ['name' => "君の名は。"],
         ['name' => "アンパンマン"],
-        ['name' => "その他"]
+        ['name' => "その他"],
+        ['name' => "スラムダンク"],
+        ['name' => "鬼滅の刃"],
+        
     ]);
     }
 }
