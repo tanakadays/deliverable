@@ -14,7 +14,70 @@
                 flex-direction: column;
                 align-items: center;
                 justify-content: center;
-                padding: 20px;
+                padding: 60px;
+            }
+            
+            header {
+                width: 100%;
+                background-color: #333;
+                color: white;
+                position: fixed;
+                top: 0;
+                left: 0;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                padding: 10px 20px;
+                box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+                z-index: 1000;
+            }
+            header h1 {
+                margin: 0;
+                font-size: 24px;
+            }
+            
+            header nav {
+                display: flex;
+                margin-left: 100;
+            }
+            
+            header nav a {
+                color: white;
+                text-decoration: none;
+                margin: 0 20px;
+                font-size: 16px;
+            }
+            header nav a:hover {
+                text-decoration: underline;
+            }
+            
+            .dropdown {
+                position: relative;
+                display: inline-block;
+            }
+        
+            .dropdown-content {
+                display: none;
+                position: absolute;
+                background-color: #f9f9f9;
+                min-width: 160px;
+                box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+                z-index: 1;
+            }
+        
+            .dropdown-content a {
+                color: black;
+                padding: 12px 16px;
+                text-decoration: none;
+                display: block;
+            }
+        
+            .dropdown-content a:hover {
+                background-color: #f1f1f1;
+            }
+        
+            .dropdown:hover .dropdown-content {
+                display: block;
             }
             .title {
                 font-size: 24px;
@@ -92,6 +155,26 @@
         <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
     </head>
     <body>
+        <header>
+            <h1>聖地巡礼マップ</h1>
+            <nav>
+                <a href="/">ホーム</a>
+                <a href="/posts/create">聖地追加</a>
+                <a href="/category_titles">作品</a>
+                <a href="/category_genres">ジャンル</a>
+                <a href="/category_areas">エリア</a>
+                
+                <div class="dropdown">
+                    <a >マイページ</a>
+                    <div class="dropdown-content">
+                        <a href="/profile">プロフィールの編集</a>
+                        <a href="/mypage">行きたいリスト</a>
+                    </div>
+                </div>
+            </nav>
+        </header>
+        
+        
         <h1 class="title">編集画面</h1>
         
         <div id="map"></div>

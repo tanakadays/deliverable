@@ -14,7 +14,7 @@
                 flex-direction: column;
                 align-items: center;
                 justify-content: center;
-                padding-top: 60px; /* ヘッダーの高さ分の余白を追加 */
+                padding-top: 60px; 
             }
             header {
                 width: 100%;
@@ -34,15 +34,51 @@
                 margin: 0;
                 font-size: 24px;
             }
+            
+            header nav {
+                display: flex;
+                margin-left: 100;
+            }
+            
             header nav a {
                 color: white;
                 text-decoration: none;
-                margin: 0 10px;
+                margin: 0 20px;
                 font-size: 16px;
             }
             header nav a:hover {
                 text-decoration: underline;
             }
+            
+            .dropdown {
+                position: relative;
+                display: inline-block;
+            }
+        
+            .dropdown-content {
+                display: none;
+                position: absolute;
+                background-color: #f9f9f9;
+                min-width: 160px;
+                box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+                z-index: 1;
+            }
+        
+            .dropdown-content a {
+                color: black;
+                padding: 12px 16px;
+                text-decoration: none;
+                display: block;
+            }
+        
+            .dropdown-content a:hover {
+                background-color: #f1f1f1;
+            }
+        
+            .dropdown:hover .dropdown-content {
+                display: block;
+            }
+            
             h1.page-title {
                 font-size: 24px;
                 color: #333;
@@ -128,6 +164,9 @@
                 border: 1px solid #ddd;
                 border-radius: 8px;
             }
+            
+            
+            
         </style>
     </head>
     <body>
@@ -136,10 +175,17 @@
             <nav>
                 <a href="/">ホーム</a>
                 <a href="/posts/create">聖地追加</a>
-                <a href="#">作品</a>
-                <a href="#">ジャンル</a>
-                <a href="#">エリア</a>
-                <a href="#">マイページ</a>
+                <a href="/category_titles">作品</a>
+                <a href="/category_genres">ジャンル</a>
+                <a href="/category_areas">エリア</a>
+                
+                <div class="dropdown">
+                    <a>マイページ</a>
+                    <div class="dropdown-content">
+                        <a href="/profile">プロフィールの編集</a>
+                        <a href="/mypage">行きたいリスト</a>
+                    </div>
+                </div>
             </nav>
         </header>
         
@@ -185,7 +231,7 @@
     
             function initMap() {
                 map = new google.maps.Map(document.getElementById("map"), {
-                    center: { lat: 35.6895, lng: 139.6917 }, // 東京の中心
+                    center: { lat: 35.6895, lng: 139.6917 }, 
                     zoom: 6,
                 });
     
@@ -200,10 +246,12 @@
                     map: map,
                     icon: {
                         url: imageUrl,
-                        scaledSize: new google.maps.Size(25, 25), // 画像のサイズを調整
+                        scaledSize: new google.maps.Size(30, 30), 
                         origin: new google.maps.Point(0, 0),
-                        anchor: new google.maps.Point(12.5, 12.5)
+                        anchor: new google.maps.Point(12.5, 12.5),
+                        
                     },
+                    
                 });
                 
                 marker.addListener('click', function() {

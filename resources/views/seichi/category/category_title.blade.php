@@ -14,13 +14,79 @@
                 flex-direction: column;
                 align-items: center;
                 justify-content: center;
-                padding: 20px;
+                padding: 60px;
             }
-            h1 {
+            
+            header {
+                width: 100%;
+                background-color: #333;
+                color: white;
+                position: fixed;
+                top: 0;
+                left: 0;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                padding: 10px 20px;
+                box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+                z-index: 1000;
+            }
+            header h1 {
+                margin: 0;
+                font-size: 24px;
+            }
+            
+            header nav {
+                display: flex;
+                margin-left: 100;
+            }
+            
+            header nav a {
+                color: white;
+                text-decoration: none;
+                margin: 0 20px;
+                font-size: 16px;
+            }
+            header nav a:hover {
+                text-decoration: underline;
+            }
+            
+            
+            h1.page-title {
                 font-size: 24px;
                 color: #333;
                 margin: 20px 0;
             }
+            .dropdown {
+                position: relative;
+                display: inline-block;
+            }
+        
+            .dropdown-content {
+                display: none;
+                position: absolute;
+                background-color: #f9f9f9;
+                min-width: 160px;
+                box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+                z-index: 1;
+            }
+        
+            .dropdown-content a {
+                color: black;
+                padding: 12px 16px;
+                text-decoration: none;
+                display: block;
+            }
+        
+            .dropdown-content a:hover {
+                background-color: #f1f1f1;
+            }
+        
+            .dropdown:hover .dropdown-content {
+                display: block;
+            }
+            
+            
             .posts {
                 width: 80%;
                 max-width: 800px;
@@ -78,7 +144,28 @@
         </style>
     </head>
     <body>
-        <h1>作品ごとの一覧</h1>
+        <header>
+            <h1>聖地巡礼マップ</h1>
+            <nav>
+                <a href="/">ホーム</a>
+                <a href="/posts/create">聖地追加</a>
+                <a href="/category_titles">作品</a>
+                <a href="/category_genres">ジャンル</a>
+                <a href="/category_areas">エリア</a>
+                
+                <div class="dropdown">
+                    <a>マイページ</a>
+                    <div class="dropdown-content">
+                        <a href="/profile">プロフィールの編集</a>
+                        <a href="/mypage">行きたいリスト</a>
+                    </div>
+                </div>
+            </nav>
+        </header>
+        
+        <h1 class='page-title'>{{ $title }}の聖地一覧</h1>
+        
+        <div id="map"></div>
         
         <div class='posts'>
             @foreach ($posts as $post)
@@ -86,17 +173,18 @@
                     <h2 class='place_name'>
                         <a href="/posts/{{ $post->id }}">{{ $post->place_name }}</a>
                     </h2>
-                    <p class='genre'>{{ $post->genre }}</p>
-                    <a href="">{{ $post->category_genre->name }}</a>
-                    <p class='title_name'>{{ $post->title_name }}</p>
-                    <a href="">{{ $post->category_title->name }}</a>
-                    <p class='area'>{{ $post->area }}</p>
+                    
+                    <p><a href="/category_genres/{{ $post->category_genre->id }}">{{ $post->category_genre->name }}</a></p>
+                    
+                    <p><a href="/category_titles/{{ $post->category_title->id }}">{{ $post->category_title->name }}</a></p>
+                    
+                    <p><a href="/category_areas/{{ $post->category_area->id }}">{{ $post->category_area->name }}</a></p>
                     <p class='information'>{{ $post->information }}</p>
                 </div>
                 <form action='/posts/{{ $post->id }}' id="form_{{ $post->id }}" method="post">
                     @csrf
                     @method('DELETE')
-                    <button type="button" onclick="deletePost({{ $post->id }})">delete</button>
+                    <button type="button" onclick="deletePost({{ $post->id }})">削除</button>
                 </form>
             @endforeach
         </div>
@@ -106,7 +194,7 @@
             {{ $posts->links() }}
         </div>
         
-        <div id="map"></div>
+        
         
         <script src="https://maps.googleapis.com/maps/api/js?key={{ $apiKey }}&callback=initMap" async defer></script>
         <script>
