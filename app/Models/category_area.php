@@ -15,7 +15,9 @@ class category_area extends Model
     }
     
     public function getByCategoryArea(int $limit_count = 5)
-{
+    {
      return $this->posts()->with('category_area')->orderBy('updated_at', 'DESC')->paginate($limit_count);
-}
+    }
+    
+    
 }

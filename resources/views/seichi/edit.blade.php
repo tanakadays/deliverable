@@ -199,10 +199,14 @@
                 
                 <div class='title_name'>
                     <h2>作品名</h2>
-                    <p>変更前:{{ $post->category_title->name }}</p>
+                    
                     <select id="options_title" name="post[category_title_id]">
                     @foreach($category_titles as $category_title)
-                        <option value="{{ $category_title->id }}">{{ $category_title->name }}</option>
+                        @if($post->category_title->id == $category_title->id)
+                            <option value="{{ $category_title->id }}" selected>{{ $category_title->name }}</option>
+                        @else
+                            <option value="{{ $category_title->id }}">{{ $category_title->name }}</option>
+                        @endif
                     @endforeach
                     </select>
                 <input id="other_title" type="text" name="post[title_name]" placeholder="作品名"/>
@@ -210,10 +214,14 @@
                 
                 <div class='genre'>
                     <h2>ジャンル</h2>
-                    <p>変更前:{{ $post->category_genre->name }}</p>
+                    
                     <select id="options_genre" name="post[category_genre_id]">
                     @foreach($category_genres as $category_genre)
-                        <option value="{{ $category_genre->id }}">{{ $category_genre->name }}</option>
+                        @if($post->category_genre_id == $category_genre->id)
+                            <option value="{{ $category_genre->id }}" selected>{{ $category_genre->name }}</option>
+                        @else
+                            <option value="{{ $category_genre->id }}">{{ $category_genre->name }}</option>
+                        @endif
                     @endforeach
                     </select>
                     <input id="other_genre" type=text name="post[genre]" placeholder="ジャンル名">
@@ -221,10 +229,14 @@
                 
                 <div class='area'>
                     <h2>エリア</h2>
-                    <p>変更前:{{ $post->category_area->name }}</p>
+                    
                     <select id="options_area" name="post[category_area_id]">
                     @foreach($category_areas as $category_area)
-                        <option value="{{ $category_area->id }}">{{ $category_area->name }}</option>
+                        @if($post->category_area->id == $category_area->id)
+                            <option value="{{ $category_area->id }}" selected>{{ $category_area->name }}</option>
+                        @else
+                            <option value="{{ $category_area->id }}">{{ $category_area->name }}</option>
+                        @endif
                     @endforeach
                     </select>
                     <input id="other_area" type="text" name="post[area]" placeholder="エリア"/>
