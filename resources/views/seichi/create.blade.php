@@ -176,6 +176,7 @@
         <h1 class="page-title">聖地追加</h1>
         
         <div id="map"></div>
+         <p class='error'>{{ $errors->first('post.latitude') }}{{ $errors->first('post.longitude') }}</p>
         
         <form action="/posts" method="POST" enctype="multipart/form-data">
             @csrf
@@ -192,30 +193,36 @@
             <div class="title_name">
                 <h2>作品名</h2>
                 <select id="options_title" name="post[category_title_id]">
+                    <option value="">選択してください</option>
                     @foreach($category_titles as $category_title)
                         <option value="{{ $category_title->id }}">{{ $category_title->name }}</option>
                     @endforeach
                 </select>
+                 <p class='error'>{{ $errors->first('post.category_title_id') }}</p>
                 <input id="other_title" type="text" name="post[title_name]" placeholder="作品名"/>
             </div>
             
             <div class="genre">
                 <h2>ジャンル</h2>
                 <select id="options_genre" name="post[category_genre_id]">
+                    <option value="">選択してください</option>
                     @foreach($category_genres as $category_genre)
                         <option value="{{ $category_genre->id }}">{{ $category_genre->name }}</option>
                     @endforeach
                 </select>
+                 <p class='error'>{{ $errors->first('post.category_genre_id') }}</p>
                 <input id="other_genre" type=text name="post[genre]" placeholder="ジャンル名">
             </div>
             
             <div class="area">
                 <h2>エリア</h2>
                 <select id="options_area" name="post[category_area_id]">
+                    <option value="">選択してください</option>
                     @foreach($category_areas as $category_area)
                         <option value="{{ $category_area->id }}">{{ $category_area->name }}</option>
                     @endforeach
                 </select>
+                 <p class='error'>{{ $errors->first('post.category_area_id') }}</p>
                 <input id="other_area" type="text" name="post[area]" placeholder="エリア"/>
             </div>
             
@@ -228,7 +235,7 @@
             <input type="hidden" name="post[latitude]" id="latitude">
             <input type="hidden" name="post[longitude]" id="longitude">
             
-            <p class='error'>{{ $errors->first('post.longitude') }}</p>
+           
             
             <input type="submit" value="保存">
         </form>

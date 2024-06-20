@@ -18,4 +18,12 @@ class category_title extends Model
     {
         return $this->posts()->with('category_title')->orderBy('updated_at', 'DESC')->paginate($limit_count);
     }
+    
+    public function getOrder()
+    {
+        return $this->orderByRaw("CASE WHEN name = 'その他' THEN 1 ELSE 0 END")->orderBy('name')->get();
+
+    }
+    
+    
 }
