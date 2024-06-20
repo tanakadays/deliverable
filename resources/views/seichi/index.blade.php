@@ -220,7 +220,7 @@
         
         <a href='/posts/create' style="margin: 20px; text-decoration: none; color: #4CAF50;">聖地追加</a>
         
-        <div class='paginate'>
+        <div class='paginate flex-row'>
             {{ $posts->links() }} 
         </div>
         

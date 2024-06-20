@@ -42,7 +42,7 @@ class PostController extends Controller
     public function create(category_genre $category_genre, category_title $category_title, category_area $category_area)
     {
         $apiKey = config('services.google_maps.api_key');
-        return view('seichi/create', compact('apiKey'))->with(['category_genres'=>$category_genre->get(), 'category_titles'=>$category_title->get(), 'category_areas'=>$category_area->get()]);
+        return view('seichi/create', compact('apiKey'))->with(['category_genres'=>$category_genre->getOrder(), 'category_titles'=>$category_title->getOrder(), 'category_areas'=>$category_area->get()]);
     }
     
     public function store(Post $post, PostRequest $request, category_genre $category_genre, category_title $category_title, category_area $category_area)
@@ -54,8 +54,15 @@ class PostController extends Controller
             $input += [ 'image_url' => $image_url];
         }
         
-        $post->user_id= 1;
+        
         $post->fill($input);
+        
+        
+        if($post->category_title_id == 4){
+            $category_title->name = $post->title_name;
+            $category_title->save();
+            $post->category_title_id = $category_title->id;
+        }
         
         if($post->category_genre_id == 5){
             $category_genre->name = $post->genre;
@@ -63,17 +70,15 @@ class PostController extends Controller
             $post->category_genre_id = $category_genre->id;
         }
         
-        if($post->category_title_id == 1){
-            $category_title->name = $post->title_name;
-            $category_title->save();
-            $post->category_title_id = $category_title->id;
-        }
+        
         
         if($post->category_area_id == 48){
             $category_area->name = $post->area;
             $category_area->save();
             $post->category_area_id = $category_area->id;
         }
+        
+        $post->user_id = Auth::id();
         
         $post->save();
         return redirect('/posts/'. $post->id);
@@ -82,10 +87,10 @@ class PostController extends Controller
     public function edit(Post $post, category_genre $category_genre, category_title $category_title, category_area $category_area)
     {
         $apiKey = config('services.google_maps.api_key');
-        return view('seichi/edit', compact('apiKey'))->with(['post'=>$post, 'category_genres'=>$category_genre->get(), 'category_titles'=>$category_title->get(), 'category_areas'=>$category_area->get()]);
+        return view('seichi/edit', compact('apiKey'))->with(['post'=>$post, 'category_genres'=>$category_genre->getOrder(), 'category_titles'=>$category_title->getOrder(), 'category_areas'=>$category_area->get()]);
     }
     
-    public function update(PostRequest $request, Post $post)
+    public function update(Post $post, PostRequest $request, category_genre $category_genre, category_title $category_title, category_area $category_area)
     {
         
         $input_post = $request['post'];
@@ -94,11 +99,35 @@ class PostController extends Controller
             $input_post += [ 'image_url' => $image_url];
         }
         
-        $post->fill($input_post)->save();
-        $post->category_genre_id = 1;
-        $post->category_title_id = 1;
-        $post->category_area_id = 1;
-        $post->user_id= 1;
+        
+        
+        $post->fill($input_post);
+        
+        #dd($post);
+        
+        if($post->category_genre_id == 5){
+            $category_genre->name = $post->genre;
+            $category_genre->save();
+            $post->category_genre_id = $category_genre->id;
+        }
+        
+        if($post->category_title_id == 4){
+            $category_title->name = $post->title_name;
+            $category_title->save();
+            $post->category_title_id = $category_title->id;
+        }
+        
+        
+        if($post->category_area_id == 48){
+            $category_area->name = $post->area;
+            $category_area->save();
+            $post->category_area_id = $category_area->id;
+        }
+        
+        $post->user_id = Auth::id();
+        
+        $post->save();
+        
         return redirect('/posts/'.$post->id);
     }
     
