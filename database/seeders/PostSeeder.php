@@ -20,6 +20,8 @@ class PostSeeder extends Seeder
         DB::table('posts')->insert([
             [
                 'place_name' => "秋名山",
+                'latitude' => 36.4769782 ,
+                'longitude' => 138.8680554,
                 'genre' => "漫画",
                 'title_name' => "イニシャルD",
                 'area' => "群馬県",
@@ -33,6 +35,8 @@ class PostSeeder extends Seeder
             ],
             [
                 'place_name' => "飛騨古川駅",
+                'latitude' =>  36.2367302,
+                'longitude' => 137.1870279,
                 'genre' => "映画",
                 'title_name' => "君の名は。",
                 'area' => "栃木県",
@@ -46,6 +50,8 @@ class PostSeeder extends Seeder
             ],
             [
                 'place_name' => "アンパンマンミュージアム",
+                'latitude' => 33.6476691,
+                'longitude' => 133.7789776,
                 'genre' => "アニメ",
                 'title_name' => "それいけアンパンマン",
                 'area' => "高知県",
@@ -59,6 +65,8 @@ class PostSeeder extends Seeder
             ],
             [
                 'place_name' => "江ノ島電鉄鎌倉高校前駅",
+                'latitude' => 35.3067286 ,
+                'longitude' => 139.497982,
                 'genre' => "漫画",
                 'title_name' => "スラムダンク",
                 'area' => "神奈川県",
@@ -72,6 +80,8 @@ class PostSeeder extends Seeder
             ],
             [
                 'place_name' => "あしかがフラワーパーク",
+                'latitude' =>  36.3141564,
+                'longitude' => 139.5155163,
                 'genre' => "漫画",
                 'title_name' => "鬼滅の刃",
                 'area' => "栃木県",
@@ -85,6 +95,8 @@ class PostSeeder extends Seeder
             ],
             [
                 'place_name' => "日枝神社",
+                'latitude' => 36.133183 ,
+                'longitude' => 137.2565162,
                 'genre' => "アニメ",
                 'title_name' => "君の名は",
                 'area' => "岐阜県",
@@ -98,6 +110,8 @@ class PostSeeder extends Seeder
             ],
             [
                 'place_name' => "立石公園",
+                'latitude' =>  36.0534868,
+                'longitude' => 138.1199542,
                 'genre' => "アニメ",
                 'title_name' => "君の名は",
                 'area' => "長野県",
@@ -111,6 +125,8 @@ class PostSeeder extends Seeder
             ],
             [
                 'place_name' => "須賀神社",
+                'latitude' =>  35.6850595,
+                'longitude' => 139.718464,
                 'genre' => "アニメ",
                 'title_name' => "君の名は",
                 'area' => "東京都",
@@ -123,20 +139,9 @@ class PostSeeder extends Seeder
                 'user_id' => 1,
             ],
             [
-                'place_name' => "江ノ島電鉄鎌倉高校前駅",
-                'genre' => "漫画",
-                'title_name' => "スラムダンク",
-                'area' => "神奈川県",
-                'information' => "オープニングにも登場していた駅です",
-                'created_at' => new Datetime(),
-                'updated_at' => new Datetime(),
-                'category_genre_id' => 1,
-                'category_title_id' => 5,
-                'category_area_id' => 14,
-                'user_id' => 1,
-            ],
-            [
                 'place_name' => "赤城山",
+                'latitude' =>  36.5389735,
+                'longitude' => 139.1561298,
                 'genre' => "漫画",
                 'title_name' => "イニシャルD",
                 'area' => "群馬県",
@@ -150,6 +155,8 @@ class PostSeeder extends Seeder
             ],
             [
                 'place_name' => "妙技山",
+                'latitude' => 36.2986177 ,
+                'longitude' => 138.738577,
                 'genre' => "漫画",
                 'title_name' => "イニシャルD",
                 'area' => "群馬県",
@@ -163,6 +170,8 @@ class PostSeeder extends Seeder
             ],
             [
                 'place_name' => "碓氷峠",
+                'latitude' =>  36.3447219,
+                'longitude' => 138.6406842,
                 'genre' => "漫画",
                 'title_name' => "イニシャルD",
                 'area' => "群馬県",
