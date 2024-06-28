@@ -18,20 +18,13 @@ use Illuminate\Support\Facades\Http;
 
 class PostController extends Controller
 {
-    public function geocode()
-    {
-        $apiKey = config('services.google_maps.api_key');
-        
-        return view('seichi.geocode', compact('apiKey'));
-    }
-    
     
     public function index(Post $post)
     {
         
         $apiKey = config('services.google_maps.api_key');
         
-        return view('seichi/index', compact('apiKey'))->with(['posts' => $post->getPaginateByLimit()]);
+        return view('seichi/index', compact('apiKey'))->with(['posts' => $post->getPaginateByLimit(50)]);
     }
     
     public function show(Post $post)

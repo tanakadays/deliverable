@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Auth;
 class Post extends Model
 {
     use HasFactory;
-    use SoftDeletes;
+    
     
     protected $fillable = [
         'place_name',

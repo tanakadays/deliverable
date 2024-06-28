@@ -39,7 +39,7 @@ Route::controller(PostController::class)->middleware(['auth'])->group(function()
     Route::get('/unlike/{id}', [PostController::class, 'unlike']);
     Route::get('/mypage', [PostController::class, 'mypage']);
     
-    Route::get('/geocode', [PostController::class, 'geocode']);
+    
 });
 
 
